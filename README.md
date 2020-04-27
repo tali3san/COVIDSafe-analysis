@@ -93,8 +93,6 @@ iOS device running an app to simulate a peripheral, it was noted that some Andro
 Android 6 to connect properly with iOS devices (`BluetoothDevice.TRANSPORT_LE`). This issue may have been iOS related and resolved by now, but
 adding the transport selection merely indicates the default. 
 
-### Foreground Service Related Issues
-
 Existing code:
 ```java
 BluetoothGatt bluetoothGatt = this.device.connectGatt(paramContext, false, paramStreetPassGattCallback);
@@ -103,6 +101,10 @@ May be more reliable when connecting to iOS as:
 ```java
 BluetoothGatt bluetoothGatt = this.device.connectGatt(paramContext, false, paramStreetPassGattCallback, BluetoothDevice.TRANSPORT_LE);
 ```
+
+### Foreground Service and Boot Permissions
+
+To be able to scan continuously with only normal developer permissions, the app requires a non dismissable notification and a foreground service. The app can thus only be killed via the preferences app and the "Force Stop" option. This can lead to issues if the app malfunctions in a way that requires a restart. The app is also restarted automatically on boot or on install of an updated. 
 
 ### RSSI (Android)
 The protocol exchanges the phone model in an attempt to account for phone model based variations in broadcasting 
